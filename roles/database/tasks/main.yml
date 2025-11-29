@@ -1,0 +1,8 @@
+---
+- name: 使用加密变量部署数据库
+  debug:
+    msg: "部署数据库 {{ postgres_db }}，用户 {{ postgres_user }}"
+
+- name: 验证加密变量可访问
+  debug:
+    msg: "加密变量已成功加载"

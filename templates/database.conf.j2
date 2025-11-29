@@ -1,0 +1,15 @@
+# 数据库配置文件
+# 自动生成 - 请勿手动修改
+
+[database]
+host = localhost
+port = {{ postgres_port }}
+database = {{ postgres_db }}
+username = {{ postgres_user }}
+password = {{ postgres_password }}
+# 密码长度: {{ postgres_password | length }} 位
+
+[harbor]
+database = {{ harbor_db }}
+username = {{ harbor_db_user }}
+password = {{ harbor_db_password }}

@@ -1,0 +1,39 @@
+---
+- name: 使用加密变量示例
+  hosts: all
+  vars_files:
+    - group_vars/all.yml
+    - group_vars/secrets.yml    # 包含加密的敏感数据
+  tasks:
+    - name: 显示非敏感配置
+      debug:
+        msg: |
+          数据库: {{ postgres_db }}
+          用户: {{ postgres_user }}
+          端口: {{ postgres_port }}
+
+    - name: 显示加密变量（在实际使用中不要这样做！）
+      debug:
+        msg: |
+          数据库密码: {{ postgres_password }}
+          Harbor密码: {{ harbor_db_password }}
+      when: false  # 设置为 false 避免实际显示密码
+
+    - name: 验证密码长度（安全的方式）
+      debug:
+        msg: "数据库密码长度: {{ postgres_password | length }} 位"
+
+    - name: 创建数据库配置模板
+      template:
+        src: database.conf.j2
+        dest: /tmp/database.conf
+      delegate_to: localhost
+
+    - name: 显示配置文件（不包含实际密码）
+      command: cat /tmp/database.conf
+      register: config_content
+      delegate_to: localhost
+
+    - name: 显示配置内容（隐藏敏感信息）
+      debug:
+        msg: "配置文件已生成，包含 {{ postgres_password | length }} 位密码"

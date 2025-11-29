@@ -1,0 +1,10 @@
+---
+# 非敏感配置 - 可以提交到版本控制
+postgres_image: "postgres:13-alpine"
+postgres_container_name: "postgres-cicd"
+postgres_data_dir: "/opt/cicd/postgres_data"
+postgres_port: 5432
+postgres_db: "sonarqube"
+postgres_user: "sonar"
+harbor_db: "harbor"
+harbor_db_user: "harbor"

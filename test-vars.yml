@@ -1,0 +1,19 @@
+---
+- name: 测试变量加载
+  hosts: localhost
+  vars_files:
+    - group_vars/all.yml
+    - group_vars/secrets.yml
+  tasks:
+    - name: 列出所有变量
+      debug:
+        var: vars
+      when: false  # 设置为 false 避免输出所有变量
+
+    - name: 检查特定变量是否定义
+      debug:
+        msg: "postgres_password 已定义: {{ postgres_password is defined }}"
+      
+    - name: 检查 harbor_db_password 是否定义
+      debug:
+        msg: "harbor_db_password 已定义: {{ harbor_db_password is defined }}"
